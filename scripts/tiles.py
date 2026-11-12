@@ -13,6 +13,7 @@ import json
 import math
 import shutil
 import threading
+import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -253,7 +254,21 @@ class LayerTiler:
 
     def run(self):
         if self.out_dir.exists():
-            shutil.rmtree(self.out_dir)
+            for attempt in range(5):
+                try:
+                    shutil.rmtree(self.out_dir)
+                    break
+                except OSError:
+                    time.sleep(0.4 * (attempt + 1))
+            else:
+                shutil.rmtree(self.out_dir, ignore_errors=True)
+                if self.out_dir.exists():
+                    for p in sorted(self.out_dir.rglob("*"), reverse=True):
+                        try:
+                            p.unlink() if p.is_file() else p.rmdir()
+                        except OSError:
+                            pass
+                    shutil.rmtree(self.out_dir, ignore_errors=True)
         z = self.zmax
         x0, y0, x1, y1 = tile_range(self.bounds_web, z)
         nbx = (x1 - x0) // BLOCK + 1
@@ -272,7 +287,21 @@ class LayerTiler:
                 res = ex.map(lambda p: self._render_parent(p[0], p[1], p[2], level), parents)
                 level = {r for r in res if r}
                 tiles.update(level)
+        self._close_vrts()
         return tiles
+
+    def _close_vrts(self):
+        cache = getattr(self.local, "vrt", None)
+        if cache:
+            try:
+                cache[1].close()
+            except Exception:
+                pass
+            try:
+                cache[2].close()
+            except Exception:
+                pass
+            self.local.vrt = None
 
 
 def build_layer_tiles(src_path, out_dir, rel_url, sig, **kw):

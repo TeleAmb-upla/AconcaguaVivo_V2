@@ -13,7 +13,7 @@
   const MISSION_ORDER = ['multi', 'termico', 'lidar'];
   const MISSION_BASE = { multi: ['rgb'], termico: ['rgb_t', 'rgb'], lidar: ['dom', 'rgb'] };
   const DIGITS = { thermal: 1, dem: 1 };
-  const QUERY_ORDER = ['ndvi', 'ndwi', 'ndci', 'ndsi', 'thermal', 'dem'];
+  const QUERY_ORDER = ['ndvi', 'ndwi', 'thermal', 'dem'];
 
   const state = {
     m: null,

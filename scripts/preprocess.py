@@ -50,7 +50,7 @@ MAX_PX_SCALAR = 4096
 GRID_PX = 512
 HIST_BINS = 48
 LAS_TARGET_POINTS = 2_000_000
-TILE_WORKERS = 6
+TILE_WORKERS = 3
 
 Image.MAX_IMAGE_PIXELS = None
 
@@ -78,14 +78,6 @@ CATALOG = {
         "label": "NDWI", "group": "indices", "mission": "multi", "unit": "", "cmap": "RdYlBu",
         "description": "Índice de agua de diferencia normalizada. Resalta cuerpos de agua y superficies húmedas (azul) frente a suelos secos y vegetación (rojo-amarillo).",
     },
-    "ndci": {
-        "label": "NDCI", "group": "indices", "mission": "multi", "unit": "", "cmap": "viridis",
-        "description": "Índice de clorofila de diferencia normalizada (borde rojo). Sensible al contenido de clorofila y pigmentos; útil para detectar cambios fisiológicos en la vegetación.",
-    },
-    "ndsi": {
-        "label": "NDSI", "group": "indices", "mission": "multi", "unit": "", "cmap": "BrBG_r",
-        "description": "Índice de diferencia normalizada orientado a resaltar suelo expuesto y superficies salinas frente a la cobertura vegetal.",
-    },
     "rgb_t": {
         "label": "RGB", "group": "color", "mission": "termico", "unit": "",
         "description": "Ortomosaico RGB capturado junto con la cámara térmica, útil como referencia visual del vuelo térmico.",
@@ -107,9 +99,9 @@ CATALOG = {
         "description": "Nube de puntos LiDAR en 3D. Puedes rotarla, acercarla y colorearla por color real, elevación, intensidad o clasificación.",
     },
 }
-LAYER_ORDER = ["rgb", "ndvi", "ndwi", "ndci", "ndsi", "rgb_t", "thermal", "dom", "dem", "lidar"]
+LAYER_ORDER = ["rgb", "ndvi", "ndwi", "rgb_t", "thermal", "dom", "dem", "lidar"]
 RGB_LAYERS = {"rgb", "rgb_t", "dom"}
-INDEX_LAYERS = {"ndvi", "ndwi", "ndci", "ndsi"}
+INDEX_LAYERS = {"ndvi", "ndwi"}
 VALID_RANGE = {
     **{k: (-1.0, 1.0) for k in INDEX_LAYERS},
     "thermal": (-40.0, 120.0),
@@ -120,7 +112,7 @@ ZCAP = {"rgb": 20, "dom": 20, "rgb_t": 20, "thermal": 19, "dem": 18, **{k: 19 fo
 EDGE_BUFFER_M = 2.0
 EDGE_SMOOTH_M = 10.0
 EDGE_HOLE_M = 50.0
-SUFFIX_RE = re.compile(r"_(rgb_t|rgb|ndvi|ndwi|ndci|ndsi|thermal)\.tif$", re.I)
+SUFFIX_RE = re.compile(r"_(rgb_t|rgb|ndvi|ndwi|thermal)\.tif$", re.I)
 FOLDER_RE = re.compile(r"^(?P<sensor>[A-Z0-9]+)_(?P<site>[A-Z0-9]+)_(?P<y>\d{4})_(?P<m>\d{2})_(?P<d>\d{2})$")
 MONTHS = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto",
           "septiembre", "octubre", "noviembre", "diciembre"]

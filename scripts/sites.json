@@ -13,5 +13,25 @@
     "site_code": "PAR",
     "site_name": "Parque Aconcagua",
     "comuna": "Quillota"
+  },
+  "M3M_HUA_2026_10_15": {
+    "site_code": "HUA",
+    "site_name": "Humedal Huairavo",
+    "comuna": "La Calera"
+  },
+  "M3M_COL_2026_11_04": {
+    "site_code": "COL",
+    "site_name": "Humedal Santa Rosa de Colmo",
+    "comuna": "Concón"
+  },
+  "M3M_CRU_2026_11_04": {
+    "site_code": "CRU",
+    "site_name": "La Cruz",
+    "comuna": "La Cruz"
+  },
+  "M3M_GAR_2026_11_04": {
+    "site_code": "GAR",
+    "site_name": "Polígono de Conservación",
+    "comuna": "Catemu"
   }
 }
