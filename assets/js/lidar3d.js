@@ -71,19 +71,33 @@
 
   async function fetchCloud(url, meta) {
     if (cache.has(url)) return cache.get(url);
+    const expected = meta.count * 11;
+    status('Cargando nube de puntos…');
     const r = await fetch(url);
     if (!r.ok) throw new Error('HTTP ' + r.status);
-    const total = +r.headers.get('content-length') || meta.count * 11;
-    const reader = r.body.getReader();
-    const buf = new Uint8Array(total);
+    // Don't pre-size from Content-Length: GitHub Pages / proxies can disagree
+    // with decompressed byte counts and overflow a fixed Uint8Array.
+    const chunks = [];
     let off = 0;
-    for (;;) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      buf.set(value, off);
-      off += value.length;
-      status(`Cargando nube de puntos… ${Math.round((off / total) * 100)}%`);
+    if (r.body && r.body.getReader) {
+      const reader = r.body.getReader();
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+        off += value.length;
+        status(`Cargando nube de puntos… ${Math.min(99, Math.round((off / Math.max(expected, off)) * 100))}%`);
+      }
+    } else {
+      const ab = await r.arrayBuffer();
+      cache.set(url, ab);
+      if (ab.byteLength < expected) throw new Error(`nube incompleta (${ab.byteLength}/${expected})`);
+      return ab;
     }
+    const buf = new Uint8Array(off);
+    let at = 0;
+    for (const c of chunks) { buf.set(c, at); at += c.length; }
+    if (buf.byteLength < expected) throw new Error(`nube incompleta (${buf.byteLength}/${expected})`);
     cache.set(url, buf.buffer);
     return buf.buffer;
   }
@@ -221,7 +235,7 @@
       console.error('Lidar3D', e);
       status(location.protocol === 'file:'
         ? 'Para ver la nube 3D abre el sitio con un servidor local (python -m http.server).'
-        : 'No se pudo cargar la nube de puntos.');
+        : `No se pudo cargar la nube de puntos${e && e.message ? ` (${e.message})` : ''}.`);
     }
   }
 
