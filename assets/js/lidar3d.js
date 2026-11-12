@@ -7,8 +7,6 @@
     6: ['Edificación', '#e05a47'], 7: ['Ruido', '#ff00ff'], 9: ['Agua', '#3a86ff'], 17: ['Puente', '#ffbe0b'],
   };
   const ELEV_STOPS = ['#2c7bb6', '#00a6ca', '#00ccbc', '#90eb9d', '#ffff8c', '#f9d057', '#f29e2e', '#e76818', '#d7191c'];
-  const INT_STOPS = ['#111111', '#555555', '#aaaaaa', '#ffffff'];
-
   let renderer, scene, camera, controls, points, el;
   let current = null;
   let mode = 'rgb';
@@ -133,12 +131,6 @@
         const c = f(q[i * 3 + 2] / 65535);
         col[i * 3] = c[0] / 255; col[i * 3 + 1] = c[1] / 255; col[i * 3 + 2] = c[2] / 255;
       }
-    } else if (mode === 'int') {
-      const f = ramp(INT_STOPS);
-      for (let i = 0; i < n; i++) {
-        const c = f(inten[i] / 255);
-        col[i * 3] = c[0] / 255; col[i * 3 + 1] = c[1] / 255; col[i * 3 + 2] = c[2] / 255;
-      }
     } else {
       const lut = {};
       Object.keys(meta.classes).forEach((k) => { lut[k] = hexToRgb((ASPRS[k] || ['', '#cccccc'])[1]); });
@@ -159,9 +151,6 @@
     if (mode === 'elev') {
       box.innerHTML = `<b>Elevación (m)</b><div class="grad" style="background:linear-gradient(to right, ${ELEV_STOPS.join(',')})"></div>
         <div class="ends"><span>${fmt(meta.min[2], 0)}</span><span>${fmt(meta.max[2], 0)}</span></div>`;
-    } else if (mode === 'int') {
-      box.innerHTML = `<b>Intensidad</b><div class="grad" style="background:linear-gradient(to right, ${INT_STOPS.join(',')})"></div>
-        <div class="ends"><span>baja</span><span>alta</span></div>`;
     } else if (mode === 'cls') {
       const total = Object.values(meta.classes).reduce((a, b) => a + b, 0);
       box.innerHTML = '<b>Clasificación</b>' + Object.entries(meta.classes).map(([k, v]) => {
