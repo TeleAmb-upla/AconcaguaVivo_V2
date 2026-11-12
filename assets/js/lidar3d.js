@@ -2,7 +2,7 @@
   'use strict';
 
   const ASPRS = {
-    0: ['Nunca clasificado', '#9e9e9e'], 1: ['Sin clasificar', '#bdbdbd'], 2: ['Suelo', '#b07d48'],
+    0: ['Nunca clasificado', '#9e9e9e'], 1: ['No suelo', '#bdbdbd'], 2: ['Suelo', '#b07d48'],
     3: ['Vegetación baja', '#a6d96a'], 4: ['Vegetación media', '#5fcf80'], 5: ['Vegetación alta', '#1a9641'],
     6: ['Edificación', '#e05a47'], 7: ['Ruido', '#ff00ff'], 9: ['Agua', '#3a86ff'], 17: ['Puente', '#ffbe0b'],
   };
@@ -114,7 +114,7 @@
   function availableModes(meta) {
     const m = [];
     if (meta.has_rgb) m.push(['rgb', 'Color real']);
-    m.push(['elev', 'Elevación'], ['int', 'Intensidad']);
+    m.push(['elev', 'Elevación']);
     if (Object.keys(meta.classes || {}).length > 1) m.push(['cls', 'Clasificación']);
     return m;
   }
