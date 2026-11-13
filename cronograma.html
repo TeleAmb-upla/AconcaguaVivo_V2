@@ -18,8 +18,8 @@
 
 <style>
     :root {
-      --month-width: 60px;  /* ancho visual de cada mes */
-      --months-count: 11;   /* sep 2025 – jul 2026 */
+      --month-width: 56px;  /* ancho visual de cada mes */
+      --months-count: 15;   /* sep 2025 – nov 2026 */
     }
 
     body {
@@ -161,6 +161,10 @@
     .start-may  { left: calc(8 * var(--month-width)); }
     .start-jun  { left: calc(9 * var(--month-width)); }
     .start-jul  { left: calc(10 * var(--month-width)); }
+    .start-ago  { left: calc(11 * var(--month-width)); }
+    .start-sep26 { left: calc(12 * var(--month-width)); }
+    .start-oct26 { left: calc(13 * var(--month-width)); }
+    .start-nov26 { left: calc(14 * var(--month-width)); }
 
     /* Clases para la duración (número de meses) */
     .span-1 { width: calc(1 * var(--month-width)); }
@@ -171,6 +175,9 @@
     .span-6 { width: calc(6 * var(--month-width)); }
     .span-7 { width: calc(7 * var(--month-width)); }
     .span-8 { width: calc(8 * var(--month-width)); }
+    .span-9 { width: calc(9 * var(--month-width)); }
+    .span-10 { width: calc(10 * var(--month-width)); }
+    .span-11 { width: calc(11 * var(--month-width)); }
 
     /* Leyenda */
     .leyenda {
@@ -352,6 +359,10 @@
       <div class="month-label">May 26</div>
       <div class="month-label">Jun 26</div>
       <div class="month-label">Jul 26</div>
+      <div class="month-label">Ago 26</div>
+      <div class="month-label">Sep 26</div>
+      <div class="month-label">Oct 26</div>
+      <div class="month-label">Nov 26</div>
     </div>
     <div class="timeline-line"></div>
 
@@ -366,7 +377,7 @@
     <div class="activity-row">
       <div class="activity-label">2. Tesis de pregrado</div>
       <div class="activity-track">
-        <div class="bar fase-impl start-ene span-7"></div>
+        <div class="bar fase-impl start-ene span-11"></div>
       </div>
     </div>
 
@@ -457,14 +468,14 @@
     <div class="activity-row">
       <div class="activity-label">15. Presentación resultados</div>
       <div class="activity-track">
-        <div class="bar fase-impl start-jun span-2"></div>
+        <div class="bar fase-impl start-nov26 span-1"></div>
       </div>
     </div>
 
     <div class="activity-row">
       <div class="activity-label">16. Actividad cierre</div>
       <div class="activity-track">
-        <div class="bar fase-difu start-jul span-1"></div>
+        <div class="bar fase-difu start-nov26 span-1"></div>
       </div>
     </div>
 
