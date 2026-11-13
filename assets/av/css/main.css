@@ -1109,7 +1109,7 @@ section,
 .counts .counts-band__head {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 12px;
   flex-wrap: wrap;
   margin: 0 12px 8px;
