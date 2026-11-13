@@ -107,7 +107,7 @@ VALID_RANGE = {
     "thermal": (-40.0, 120.0),
     "dem": (-500.0, 7000.0),
 }
-PER_FLIGHT_RANGE = {"dem"}
+PER_FLIGHT_RANGE = {"dem", *INDEX_LAYERS}
 ZCAP = {"rgb": 20, "dom": 20, "rgb_t": 20, "thermal": 19, "dem": 18, **{k: 19 for k in INDEX_LAYERS}}
 EDGE_BUFFER_M = 2.0
 EDGE_SMOOTH_M = 10.0
@@ -321,7 +321,12 @@ def web_bounds_latlon(transform, h, w):
 
 def nice_range(lo, hi, kind):
     if kind in INDEX_LAYERS:
-        return math.floor(lo * 20) / 20, math.ceil(hi * 20) / 20
+        # Diverging scale centered at 0: use the extreme furthest from 0
+        # as both ± limits so 0 sits in the middle of the legend/colormap.
+        m = max(abs(float(lo)), abs(float(hi)), 1e-3)
+        m = math.ceil(m * 20) / 20
+        m = min(m, 1.0)
+        return -m, m
     if kind in ("thermal", "dem"):
         return math.floor(lo), math.ceil(hi)
     return round(lo, 3), round(hi, 3)
