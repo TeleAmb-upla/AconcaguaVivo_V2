@@ -976,7 +976,13 @@ section,
 
 .hero:before {
   content: "";
-  background: color-mix(in srgb, var(--background-color), transparent 60%);
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--background-color), transparent 28%) 0%,
+      color-mix(in srgb, var(--background-color), transparent 52%) 55%,
+      color-mix(in srgb, var(--background-color), transparent 62%) 100%
+    );
   position: absolute;
   inset: 0;
   z-index: 2;
