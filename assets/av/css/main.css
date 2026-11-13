@@ -1457,6 +1457,74 @@ section,
   margin-bottom: 0;
 }
 
+.about-us .programa-intro h4,
+.about-us .programa-block h4 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.65rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+.about-us .programa-intro h3 {
+  margin-bottom: 0.85rem;
+}
+
+.about-us .programa-intro p,
+.about-us .programa-block p {
+  line-height: 1.65;
+  text-align: left;
+}
+
+.about-us .programa-block {
+  height: 100%;
+  padding: 4px 2px;
+}
+
+.about-us .programa-lead {
+  min-height: 1.65em;
+  margin-bottom: 1rem;
+  color: color-mix(in srgb, var(--default-color), transparent 15%);
+}
+
+.about-us .programa-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about-us .programa-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding-bottom: 14px;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.about-us .programa-list li:last-child {
+  padding-bottom: 0;
+}
+
+.about-us .programa-list i {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.about-us .programa-list .bi-check-circle {
+  color: #2f9e5f;
+}
+
+.about-us .programa-list .bi-flower2 {
+  color: #d45b8c;
+}
+
+.about-us .programa-list span {
+  flex: 1 1 auto;
+}
+
 /*--------------------------------------------------------------
 # Testimonials Section
 --------------------------------------------------------------*/
